@@ -5,4 +5,5 @@ WORKDIR /workspace
 COPY .. .
 
 # clippy: Rust linter
-RUN rustup component add clippy
+RUN rustup component add clippy \
+    rustfmt
