@@ -2,12 +2,12 @@ name: Create Release and Deploy
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
 
 jobs:
   nightly:
-    name: Deploy nightly
+    name: Create Release and Deploy
     strategy:
       fail-fast: false
       matrix:
