@@ -1,27 +1,29 @@
 use clap::Parser;
-use std::fs;
-// use std::path;
+use ignore::Walk;
 
-/// Simple program to greet a person
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Args {
-    /// Name of the person to greet
-    #[arg(short, long)]
-    target_dir_path: String,
+    // 探索対象のディレクトリへのパス
+    #[arg(long)]
+    haystack: String,
 
-    /// Number of times to greet
-    #[arg(short, long)]
-    file_name: String,
+    // 探したいファイルの名前
+    #[arg(long)]
+    needle: String,
 }
 
 fn main() {
     let args = Args::parse();
 
-    let dir = fs::read_dir(&args.target_dir_path).unwrap();
-
-    for file in dir.into_iter() {
-        let file_name = file.unwrap().file_name();
-        println!("{:?}", file_name);
+    for result in Walk::new(&args.haystack) {
+        match result {
+            Ok(entry) => {
+                if entry.file_name().to_str().unwrap() == args.needle {
+                    println!("{}", entry.path().display());
+                }
+            },
+            Err(error) => println!("{}", error),
+        }
     }
 }
