@@ -36,3 +36,4 @@
 * [fd-find](https://github.com/sharkdp/fd) Rustによる高速な `find` の再実装．ライブラリとしてCLIツールの内部で使えればよかったが，それはできない．
 * [ignore](https://crates.io/crates/ignore) fd-findの内部で使用されているファイル検索クレート．
 * [clap](https://crates.io/crates/clap) コマンドラインツールを作るためのクレート．
+* [tempdir](https://crates.io/crates/tempdir) 一時ファイルを作成することができる，テストを楽にしてくれそうなクレート.
