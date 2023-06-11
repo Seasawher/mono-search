@@ -1,3 +1,5 @@
+# Github action to automatically create a github release on merge to main.
+# Skips if a release already exists with the version defined in Cargo.toml.
 name: Create Release
 
 on:
