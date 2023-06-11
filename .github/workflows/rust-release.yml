@@ -1,5 +1,3 @@
-# Github action to automatically create a github release on merge to main.
-# Skips if a release already exists with the version defined in Cargo.toml.
 name: Create Release
 
 on:
@@ -8,12 +6,19 @@ on:
     branches: [ "main" ]
 
 jobs:
-  create_release:
+  release:
+    name: release ${{ matrix.target }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+          target: [x86_64-pc-windows-gnu, x86_64-unknown-linux-musl]
     steps:
-      - uses: actions/checkout@v3
-      - uses: manoadamro/rust-release@v1
+      - uses: actions/checkout@master
+      - name: Compile and release
+        uses: rust-build/rust-build.action@v1.4.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-            owner: ${{ github.repository_owner }}
-            repo: ${{ github.repository }}
-            token: ${{ secrets.GITHUB_TOKEN }}
+          RUSTTARGET: ${{ matrix.target }}
+          EXTRA_FILES: "README.md LICENSE"
