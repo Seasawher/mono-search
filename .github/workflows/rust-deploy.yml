@@ -1,4 +1,4 @@
-name: Deploy Nightly
+name: Create Release and Deploy
 
 on:
   workflow_dispatch:
@@ -15,12 +15,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-      - name: Run tests
-        run: cargo test --verbose
       - name: Build
         run: cargo build --verbose --release
       - name: Get Directory
-        run: find mono_search
+        run: Get-ChildItem -Recurse -Filter "mono_search"
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
@@ -33,7 +31,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # automatically provided by github actions
         with:
-          # https://github.com/Seasawher/mono-search/releases/new
           upload_url: https://uploads.github.com/repos/Seasawher/mono-search/releases/108142419/assets{?name,label} # find out this value by opening https://api.github.com/repos/<owner>/<repo>/releases in your browser and copy the full "upload_url" value including the {?name,label} part
           release_id: 108142419 # same as above (id can just be taken out the upload_url, it's used to find old releases)
           asset_path: target/release/mono_search # path to archive to upload
