@@ -30,3 +30,9 @@
 * 単独で使うことができて，依存ツールのインストールが不要
 * 完全にローカルに動作し，ネットにアクセスしない
 * ファイルの読み込みのみを行い，変更・削除をしない
+
+## 参考にしたもの
+
+* [fd-find](https://github.com/sharkdp/fd) Rustによる高速な `find` の再実装．ライブラリとしてCLIツールの内部で使えればよかったが，それはできない．
+* [ignore](https://crates.io/crates/ignore) fd-findの内部で使用されているファイル検索クレート．
+* [clap](https://crates.io/crates/clap) コマンドラインツールを作るためのクレート．
