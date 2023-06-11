@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  rust_devcontainer:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    image: rust-cli
+    container_name: rust-cli-devcontainer
+    volumes:
+      - type: bind
+        source: ..
+        target: /workspace
+    tty: true
+    stdin_open: true
